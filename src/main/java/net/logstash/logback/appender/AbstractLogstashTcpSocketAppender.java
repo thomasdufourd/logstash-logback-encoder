@@ -278,6 +278,8 @@ public abstract class AbstractLogstashTcpSocketAppender<Event extends DeferredPr
         @Override
         public void onEvent(LogEvent<Event> logEvent, long sequence, boolean endOfBatch) throws Exception {
             
+            addInfo("Dequeued event " + logEvent.event);
+            
             for (int i = 0; i < MAX_REPEAT_WRITE_ATTEMPTS; i++) {
                 if (this.socket == null) {
                     /*
@@ -296,12 +298,14 @@ public abstract class AbstractLogstashTcpSocketAppender<Event extends DeferredPr
                          * Therefore, we need to send the event.
                          */
                         encoder.doEncode(logEvent.event);
+                        addInfo("Sent event " + logEvent.event);
                     } else if (hasKeepAliveDurationElapsed(lastSentTimestamp, currentTime)){
                         /*
                          * This is a keep alive event, and the keepAliveDuration has passed,
                          * Therefore, we need to send the keepAliveMessage.
                          */
                         outputStream.write(keepAliveBytes);
+                        addInfo("Sent keepAlive");
                     }
                     if (endOfBatch) {
                         outputStream.flush();

@@ -343,11 +343,13 @@ public abstract class AsyncDisruptorAppender<Event extends DeferredProcessingAwa
         prepareForDeferredProcessing(event);
         
         if (!this.disruptor.getRingBuffer().tryPublishEvent(this.eventTranslator, event)) {
+            addWarn("Dropped event " + event);
             long consecutiveDropped = this.consecutiveDroppedCount.incrementAndGet();
             if ((consecutiveDropped) % this.droppedWarnFrequency == 1) {
                 addWarn("Dropped " + consecutiveDropped + " events (and counting...) due to ring buffer at max capacity [" + this.ringBufferSize + "]");
             }
         } else {
+            addInfo("Enqueued event " + event);
             long consecutiveDropped = this.consecutiveDroppedCount.get();
             if (consecutiveDropped != 0 && this.consecutiveDroppedCount.compareAndSet(consecutiveDropped, 0L)) {
                 addWarn("Dropped " + consecutiveDropped + " total events due to ring buffer at max capacity [" + this.ringBufferSize + "]");
