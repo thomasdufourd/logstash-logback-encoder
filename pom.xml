@@ -4,11 +4,11 @@
 
     <groupId>net.logstash.logback</groupId>
     <artifactId>logstash-logback-encoder</artifactId>
-    <version>4.3</version>
+    <version>4.3.1</version>
 
     <name>Logstash Logback Encoder</name>
     <description>Logback encoder which will output events as Logstash-compatible JSON</description>
-    <url>https://github.com/logstash/logstash-logback-encoder</url>
+    <url>https://github.com/thomasdufourd/logstash-logback-encoder.git</url>
 
     <parent>
         <groupId>org.sonatype.oss</groupId>
@@ -17,9 +17,9 @@
     </parent>
 
     <scm>
-        <connection>scm:git:git@github.com:logstash/logstash-logback-encoder.git</connection>
-        <developerConnection>scm:git:git@github.com:logstash/logstash-logback-encoder.git</developerConnection>
-        <tag>logstash-logback-encoder-4.3</tag>
+        <connection>scm:git:git@github.com:thomasdufourd/logstash-logback-encoder.git</connection>
+        <developerConnection>scm:git:git@github.com:thomasdufourd/logstash-logback-encoder.git</developerConnection>
+        <tag>logstash-logback-encoder-4.3.1</tag>
     </scm>
 
     <prerequisites>
@@ -140,8 +140,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <!-- Java 5 -->
+                    <source>1.5</source>
+                    <target>1.5</target>
                 </configuration>
             </plugin>
             <plugin>
